@@ -1,0 +1,6 @@
+{
+  "name": "@thibautrey/chatons-extension-homeassistant",
+  "version": "1.0.0",
+  "description": "Control your Home Assistant instance from Chatons",
+  "license": "MIT"
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Home Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ce-page">
+    <div class="ce-page-header">
+      <div class="ce-page-title-group">
+        <h1 class="ce-page-title">Home Assistant</h1>
+        <p class="ce-page-description">Connect to your Home Assistant instance to control devices via the AI assistant.</p>
+      </div>
+    </div>
+
+    <!-- Connection config card -->
+    <div class="ce-card">
+      <div class="ce-card__body">
+        <h2 class="ce-section-title">Connection Settings</h2>
+        <div class="ce-field">
+          <label class="ce-label" for="haUrl">Home Assistant URL</label>
+          <input id="haUrl" type="url" placeholder="http://homeassistant.local:8123">
+          <div class="ce-help">The base URL of your Home Assistant instance (no trailing slash).</div>
+        </div>
+        <div class="ce-field">
+          <label class="ce-label" for="haToken">Long-Lived Access Token</label>
+          <input id="haToken" type="password" placeholder="Enter your access token">
+          <div class="ce-help">Generate one in HA: Profile &rarr; Long-Lived Access Tokens &rarr; Create Token.</div>
+        </div>
+        <div class="ce-toolbar">
+          <button id="testBtn" class="chaton-ui-button">Test Connection</button>
+          <button id="saveBtn" class="chaton-ui-button chaton-ui-button--primary">Save</button>
+        </div>
+        <div id="statusMsg" class="status-msg"></div>
+      </div>
+    </div>
+
+    <!-- Connection status card -->
+    <div class="ce-card" id="infoCard" style="display:none">
+      <div class="ce-card__body">
+        <h2 class="ce-section-title">Instance Info</h2>
+        <div id="instanceInfo" class="instance-info"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

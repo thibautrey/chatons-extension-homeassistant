@@ -1,0 +1,124 @@
+{
+  "id": "@thibautrey/chatons-extension-homeassistant",
+  "name": "Home Assistant",
+  "version": "1.0.0",
+  "description": "Control your Home Assistant instance from Chatons",
+  "capabilities": [
+    "ui.menu",
+    "ui.mainView",
+    "storage.kv",
+    "llm.tools",
+    "host.notifications"
+  ],
+  "ui": {
+    "menuItems": [
+      {
+        "id": "homeassistant.menu",
+        "label": "Home Assistant",
+        "icon": "House",
+        "order": 55,
+        "openMainView": "homeassistant.main"
+      }
+    ],
+    "mainViews": [
+      {
+        "viewId": "homeassistant.main",
+        "title": "Home Assistant",
+        "webviewUrl": "chaton-extension://@thibautrey/chatons-extension-homeassistant/index.html",
+        "initialRoute": "/"
+      }
+    ]
+  },
+  "llm": {
+    "tools": [
+      {
+        "name": "homeassistant_list_entities",
+        "label": "List HA Entities",
+        "description": "List all entities (or filter by domain) from Home Assistant. Domains include: light, switch, sensor, binary_sensor, climate, cover, media_player, automation, script, scene, fan, lock, vacuum, camera, etc.",
+        "promptSnippet": "Use homeassistant_list_entities to discover available devices and sensors.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "domain": {
+              "type": "string",
+              "description": "Optional domain filter (e.g. light, switch, sensor, climate, cover, media_player)"
+            }
+          }
+        }
+      },
+      {
+        "name": "homeassistant_get_entity_state",
+        "label": "Get HA Entity State",
+        "description": "Get the current state and attributes of a Home Assistant entity.",
+        "promptSnippet": "Use homeassistant_get_entity_state to check the state of a specific device or sensor.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "entity_id": {
+              "type": "string",
+              "description": "Entity ID (e.g. light.living_room, sensor.temperature)"
+            }
+          },
+          "required": ["entity_id"]
+        }
+      },
+      {
+        "name": "homeassistant_call_service",
+        "label": "Call HA Service",
+        "description": "Call a Home Assistant service to control devices. Common services: light.turn_on, light.turn_off, switch.turn_on, switch.turn_off, climate.set_temperature, cover.open_cover, cover.close_cover, media_player.media_play, media_player.media_pause, scene.turn_on, automation.trigger, script.turn_on, lock.lock, lock.unlock, fan.turn_on, fan.turn_off.",
+        "promptSnippet": "Use homeassistant_call_service to control devices (turn on/off lights, set temperature, etc.).",
+        "promptGuidelines": [
+          "Always list entities first to discover valid entity_ids before calling services.",
+          "The service format is domain.action (e.g. light.turn_on).",
+          "service_data is optional and depends on the service (e.g. {\"brightness\": 255} for light.turn_on)."
+        ],
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "service": {
+              "type": "string",
+              "description": "Service to call (e.g. light.turn_on, climate.set_temperature)"
+            },
+            "entity_id": {
+              "type": "string",
+              "description": "Target entity ID"
+            },
+            "service_data": {
+              "type": "object",
+              "description": "Optional service data (e.g. {\"brightness\": 255, \"color_name\": \"red\"} for lights, {\"temperature\": 22} for climate)"
+            }
+          },
+          "required": ["service", "entity_id"]
+        }
+      },
+      {
+        "name": "homeassistant_get_history",
+        "label": "Get HA Entity History",
+        "description": "Get state history of a Home Assistant entity for a time period.",
+        "promptSnippet": "Use homeassistant_get_history to check past states of a sensor or device.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "entity_id": {
+              "type": "string",
+              "description": "Entity ID to get history for"
+            },
+            "hours": {
+              "type": "number",
+              "description": "Number of hours of history to retrieve (default: 24, max: 168)"
+            }
+          },
+          "required": ["entity_id"]
+        }
+      }
+    ]
+  },
+  "apis": {
+    "exposes": [
+      { "name": "homeassistant_list_entities", "version": "1.0.0" },
+      { "name": "homeassistant_get_entity_state", "version": "1.0.0" },
+      { "name": "homeassistant_call_service", "version": "1.0.0" },
+      { "name": "homeassistant_get_history", "version": "1.0.0" }
+    ]
+  }
+}

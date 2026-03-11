@@ -1,0 +1,21 @@
+.status-msg {
+  margin-top: 12px;
+  font-size: 13px;
+  min-height: 20px;
+}
+.status-msg.success { color: #22c55e; }
+.status-msg.error { color: #ef4444; }
+
+.instance-info {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.instance-info .info-row {
+  display: flex;
+  gap: 8px;
+}
+.instance-info .info-label {
+  font-weight: 500;
+  min-width: 120px;
+  color: var(--ce-muted, #6b7280);
+}
